@@ -1,0 +1,21 @@
+{
+  "config":{
+    "requests":[
+      {
+        "method": "TOKEN",
+        "url": "http://google.com",
+        "jsonData": false,
+        "token": "<script nonce=\"<TOKEN>\">",
+        "keywords":
+          {
+            "success": ["search"],
+            "fail": ["invalid request"]
+          },
+        "isFinalRequest": true
+      }
+    ]
+
+    
+
+  } 
+}
