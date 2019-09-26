@@ -3,6 +3,7 @@ const axios = require('axios')
 class Requests{
   
 
+<<<<<<< HEAD
   async RequestMaker(Config, Params){
 
     const RequestResponse = {
@@ -89,11 +90,58 @@ class Requests{
           Keywords.words = await this.keywords(
             HTTPRequest.data,
             CurrentRequest.json_response,
+=======
+  async RequestMaker(Config){
+
+    const APIResponse = {
+      success: Boolean,
+      message: String, 
+    }
+
+    // Load config from json file, and execute requests and functions
+
+    const Requests = []
+
+    for (let RequestIndex = 0; RequestIndex < Config.config.requests.length; RequestIndex++) {
+      
+        let CurrentRequest = Config.config.requests[RequestIndex]
+
+        let CurrentRequestOptions = {
+          method: CurrentRequest.method === "TOKEN" ? "GET" : "POST",
+          url: CurrentRequest.url,
+          data: CurrentRequest.postfields ? CurrentRequest.postfields : null,
+          headers: CurrentRequest.headers ? CurrentRequest.headers : null,
+          json: CurrentRequest.jsonData
+        };
+
+        const HTTPRequest = await axios(CurrentRequestOptions)
+
+        Requests.push({id: RequestIndex, type:CurrentRequest.method, response: HTTPRequest.data,})
+
+        Requests.map((request) => {
+          if(request.type == "TOKEN"){
+            const TokenRegex = String(CurrentRequest.token).replace('<TOKEN>', '(.+)')
+            if(!String(request.response).match(TokenRegex)[1]){
+              APIResponse.success = false 
+              APIResponse.message = "Erro, token não capturado."
+            } else {
+              APIResponse.success = true 
+              APIResponse.message = ""
+            }
+          }
+        })
+        return JSON.stringify(APIResponse)
+
+        if(CurrentRequest.isFinalRequest === true) {
+          return requests.keywords(
+            ExecRequest.data,
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
             CurrentRequest.keywords.success,
             CurrentRequest.keywords.fail
             )
         }
 
+<<<<<<< HEAD
 
         RequestObject.obj = {
           id:RequestIndex,
@@ -111,6 +159,12 @@ class Requests{
 
     return JSON.stringify(RequestResponse)
 
+=======
+            
+    }
+
+    return console.log(RequestResponses)
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
 
   }
 
@@ -133,21 +187,33 @@ class Requests{
   async keywords(data = String, JSONdata = false, successMessages = [], errorsMessages = []){
     
     const keywords = {
+<<<<<<< HEAD
       keyword: {}
+=======
+      keywords: {}
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
     }
 
     if(JSONdata === true) data = JSON.stringify(data)
 
     successMessages.map((Message) => {
       if(String(data).indexOf(Message) > -1){
+<<<<<<< HEAD
         keywords.keyword = { success: Message }
+=======
+        keywords.keywords = { success: Message }
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
       }
     })
 
     errorsMessages.map((Message) => {
       
       if(String(data).indexOf(Message) > -1){
+<<<<<<< HEAD
         keywords.keyword = { fail: Message }
+=======
+        keywords.keywords = { fail: Message }
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
       }
     })
 
@@ -155,6 +221,34 @@ class Requests{
   
   }
 
+<<<<<<< HEAD
   
+=======
+  async login(url, postfields, headers, json = Boolean, successKeywords = [], failKeywords = [] ){
+
+    
+
+    const authOptions = {
+      method: 'POST',
+      url: url,
+      data: postfields,
+      headers: headers,
+      json: json
+    };
+
+
+    const LoginRequest = await axios(authOptions)
+
+    const keywords = await this.keywords(LoginRequest.data, true, successKeywords, failKeywords)
+  
+    const LoginResponse = {
+      status: LoginRequest.status,
+      success: keywords.keywords.success ? true : false,
+    }
+    
+    return JSON.stringify(LoginResponse)
+
+  }
+>>>>>>> 300c42c51c863a358a260d9c54fe5234305e2093
 }
 module.exports = Requests
