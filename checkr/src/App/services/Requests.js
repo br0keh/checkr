@@ -8,6 +8,7 @@ class Requests{
     const Requests = {
       list: [],
       tokens: [],
+      keywords: {},
     };
     
 
@@ -29,7 +30,7 @@ class Requests{
         if(!Params.email || !Params.password){ 
           RequestObject.error = "please enter email/password"
           RequestObject.post_validated = false
-          return
+          return 
         }       
         let TokenMatch = CurrentRequest.postfields.match("<TOKEN([0-9]{1,2})>")
          
@@ -82,7 +83,7 @@ class Requests{
 
       //VERIFY KEYWORDS
       if(CurrentRequest.keywords){
-        RequestObject.keywords = await this.keywords(
+        Requests.keywords = await this.keywords(
           Request.data,
           CurrentRequest.json_response,
           CurrentRequest.keywords.success,
@@ -99,7 +100,7 @@ class Requests{
       
     }
     
-    console.log(JSON.stringify(Requests))
+    return Requests
 
   }
 

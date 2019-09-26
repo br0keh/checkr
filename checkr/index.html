@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        
+
         <div class="configDetails section" style="display: none">
             <div class="configDetailsMain" style="padding: 5px"></div>
             <br/>
@@ -70,13 +70,51 @@
               <div class="subtitle">Control</div>
                 <div class="form-group">
                     <button id="startBtn" class="btn btn-success">Start</button>
-                    <button id="clearBtn" class="btn btn-warning">Clear</button>
+                    <button id="stopBtn" class="btn btn-warning">Stop</button>
                 </div>
           </div>
-          <div style="display: none" class="results section">
+
+
+          <div style="display: none" class="hits result">
               <div class="subtitle">Hits</div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Pass</th>
+                    <th scope="col">Capture</th>
+                  </tr>
+                </thead>
+                <tbody id="hitsTable">
+                    
+                </tbody>
+              </table>
           </div>
-  
+
+
+          <div style="display: none" class="fails result">
+              <div class="subtitle">Fails</div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Pass</th>
+                    <th scope="col">Capture</th>
+                  </tr>
+                </thead>
+                <tbody id="failsTable">
+                    
+                </tbody>
+              </table>
+          </div>
+
+
+
+         <br>
     </div>
 
 
