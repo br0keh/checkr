@@ -1,7 +1,8 @@
 # checkr
 Open-source cracking tool.
 
-
+Screenshot
+![App Screenshot](https://raw.githubusercontent.com/br0keh/checkr/master/screenshot.png)
 
 Config example
 ```json
