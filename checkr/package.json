@@ -1,0 +1,43 @@
+{
+  "name": "checkr",
+  "version": "1.0.0",
+  "description": "Multi Account Checker",
+  "main": "main.js",
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "start": "electron ."
+  },
+  "win": {
+    "target": "NSIS"
+  },
+  "build": {
+    "appId": "",
+    "mac": {
+      "category": ""
+    }
+  },
+  "repository": "https://github.com/br0keh/checkr",
+  "keywords": [
+    "Electron",
+    "cracking",
+    "tool"
+  ],
+  "author": "Br0keh",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.7",
+    "electron-builder": "^21.2.0"
+  },
+  "dependencies": {
+    "async": "^3.1.0",
+    "cluster": "^0.7.7",
+    "easyjson": "^0.1.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "interactjs": "^1.4.0-rc.13",
+    "jquery": "^3.4.1",
+    "microjob": "^0.6.1",
+    "worker-threads-pool": "^2.0.0",
+    "workerpool": "^5.0.0"
+  }
+}

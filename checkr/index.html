@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>checkr | Multi Account Checker</title>
+    <link rel="stylesheet" href="src/App/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="src/App/stylesheets/main.css">
+  </head>
+  <body>
+
+    <div id="root">
+      <div class="title">
+        <h1>checkr <span>beta version</span></h1> 
+      </div>
+      <div class="messages">
+
+      </div>
+      <div class="form section"  id="configFileDragAndDrop">
+          <label class="subtitle">Config</label>
+          <div class="form-group">
+            <input  id="configUrl" type="url" class="form-control" placeholder="Pass the config URL or drag and drop it here">
+          </div>
+          
+          <div class="form-group">
+              <button class="btn btn-success" id="LoadConfig">Load</button>
+              
+          </div>
+      </div>
+
+      <div class="configDetails section" style="display: none">
+        <div class="configDetailsMain" style="padding: 5px">
+
+        </div>
+        <br/>
+        <button id="ResetConfigBtn" class="btn btn-primary btn-sm">Reset</button> 
+      </div>
+
+      <div class="info section" style="display: none">
+
+        <div class="subtitle">Status</div>
+        <div class="info-text">
+
+        </div>
+
+      </div>
+
+      <div class="controllers section" style="display: block"> 
+
+          <div class="subtitle">Control</div>
+
+            <div class="form-group">
+                <button id="startBtn" class="btn btn-success">Start</button>
+                <button id="clearBtn" class="btn btn-warning">Clear</button>
+            </div>
+
+          </div>
+  
+        </div>
+
+
+    </div>
+
+    <script src="src/App/main.js"></script>
+
+  </body>
+</html>
