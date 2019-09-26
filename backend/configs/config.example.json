@@ -1,0 +1,31 @@
+{
+  "config":{
+    "name": "Google Test Config",
+    "author": "Br0keh",
+    "requests":[
+      {
+        "method": "GET",
+        "url": "http://google.com",
+        "json_postfields": false,
+        "json_response": false,
+        "tokens": ["<script nonce=\"<TOKEN>\">"],
+        "isFinalRequest": false
+      },
+      {
+        "method": "GET",
+        "url": "http://facebook.com",
+        "json_postfields": false,
+        "json_response": false,
+        "isFinalRequest": true,
+        "keywords":
+          {
+            "success": ["search"],
+            "fail": ["invalid request"]
+        }
+      }
+    ]
+
+    
+
+  } 
+}
