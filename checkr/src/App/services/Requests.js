@@ -19,14 +19,17 @@ class Requests{
       const RequestObject = {
         id: ReqIndex,
         method: CurrentRequest.method,
-
+        user: Params.email,
+        pass: Params.password,
+        post_validated: true,
       }
 
       
       if(CurrentRequest.method === "POST"){
         if(!Params.email || !Params.password){ 
           RequestObject.error = "please enter email/password"
-
+          RequestObject.post_validated = false
+          return
         }       
         let TokenMatch = CurrentRequest.postfields.match("<TOKEN([0-9]{1,2})>")
          
@@ -96,7 +99,7 @@ class Requests{
       
     }
     
-    console.log(`Request list:\n`+Requests)
+    console.log(JSON.stringify(Requests))
 
   }
 
