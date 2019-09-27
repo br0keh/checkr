@@ -1,10 +1,14 @@
 # checkr
 Open-source cracking tool.
 
-Screenshot
-![App Screenshot](https://raw.githubusercontent.com/br0keh/checkr/master/screenshot.png)
 
-Config example
+
+<i>Screenshot</i>
+![App Screenshot](https://raw.githubusercontent.com/br0keh/checkr/master/screenshot.gif)
+
+
+
+<i>Example config</i>
 ```json
     { "config": {
         "name": "CPanel Store Config - example",
