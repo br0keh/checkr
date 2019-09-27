@@ -70,6 +70,9 @@ window.onload = async function() {
     if (Combo.loaded === false)
       return ShowMessage("Please load combolist before you start.", "danger");
 
+    if (Config.Main.proxy === true && Proxies.loaded === false)
+      return ShowMessage("This config requires proxies.", "warning");
+
     console.log("[action] checker started");
 
     Checker.running = true;
