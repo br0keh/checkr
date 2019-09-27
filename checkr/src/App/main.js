@@ -46,7 +46,6 @@ function ShowMessage(MessageText, MessageType) {
   }, 3000);
 }
 
-
 window.onload = async function() {
   $("#stopBtn").click(() => {
     Workers.forEach(
@@ -88,7 +87,6 @@ window.onload = async function() {
         new Worker(await RequestWork(Config.Main, Params, requests))
       );
     });
-
   });
 
   $("#ResetComboBtn").click(() => {
@@ -122,7 +120,6 @@ window.onload = async function() {
   }
 
   $("#LoadConfig").click(async function(e) {
-
     console.log("[action] load config");
 
     let ConfigUrl = $("#configUrl").val();
