@@ -3,9 +3,11 @@ const easyjson = require("easyjson");
 
 const configDropContainer = document.getElementById("configFileDragAndDrop");
 const comboListDropContainer = document.getElementById("comboListDragAndDrop");
+const proxyListDragAndDrop = document.getElementById("proxyListDragAndDrop");
 
 //MODULES
 const Requests = require("./src/App/services/Requests.js");
+const LoadProxyList = require("./src/App/services/LoadProxyList.js");
 const LoadConfig = require("./src/App/services/LoadConfig.js");
 const LoadCombo = require("./src/App/services/LoadCombo.js");
 const LoadConfigFromUrl = require("./src/App/services/LoadConfigFromUrl.js");
@@ -14,6 +16,11 @@ const RequestWork = require("./src/App/services/RequestWork.js");
 //STATES
 const Checker = {
   running: false
+};
+
+const Proxies = {
+  list: [],
+  loaded: false
 };
 
 const Config = {
@@ -91,13 +98,35 @@ window.onload = async function() {
 
   $("#ResetComboBtn").click(() => {
     if (Checker.running === true)
-      return ShowMessage("Stop checker before reset combo", "danger");
+      return ShowMessage("Stop checker before reset combo list", "danger");
 
     Combo.list = [];
     Combo.loaded = false;
     $(".combolist-text-loaded").slideUp(500, () => {
       $("#comboListCountText").html("");
       $(".combolist-text").slideDown(1000);
+    });
+  });
+
+  $("#proxyTypeSelect").click(e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    return ShowMessage(
+      "SOCKS5 and SOCKS4 support is not available yet.",
+      "warning"
+    );
+  });
+
+  $("#ResetProxiesBtn").click(() => {
+    if (Checker.running === true)
+      return ShowMessage("Stop checker before reset proxies", "danger");
+
+    Proxies.list = [];
+    Proxies.loaded = false;
+    $(".proxylist-text-loaded").slideUp(500, () => {
+      $("#proxylistCountText").html("");
+      $(".proxylist-text").slideDown(1000);
     });
   });
 
@@ -137,6 +166,21 @@ window.onload = async function() {
 
     $("#configUrl").val("");
   });
+
+  proxyListDragAndDrop.ondragover = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  proxyListDragAndDrop.ondrop = async e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await LoadProxyList(e);
+  };
+  proxyListDragAndDrop.ondragend = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   configDropContainer.ondragover = function(e) {
     e.preventDefault();
