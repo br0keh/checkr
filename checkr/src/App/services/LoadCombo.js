@@ -4,7 +4,7 @@ module.exports = async function LoadCombo(e){
     return ShowMessage("TXT files only.", 'warning')
   }
 
-  await fs.readFile(e.dataTransfer.files[0].path, "utf8", (err, data)=>{
+  fs.readFile(e.dataTransfer.files[0].path, "utf8", (err, data)=>{
     if(err) return console.log(err)
 
     let List = data.split('\n')
