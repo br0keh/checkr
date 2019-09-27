@@ -93,6 +93,11 @@ window.onload = async function() {
         password: formatedCredentials[1]
       };
 
+      if (Config.Main.proxy === true) {
+        Params.proxy =
+          Proxies.list[Math.floor(Math.random() * Proxies.list.length)];
+      }
+
       Workers.push(
         new Worker(await RequestWork(Config.Main, Params, requests))
       );

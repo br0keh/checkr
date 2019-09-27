@@ -58,9 +58,24 @@ class Requests {
         withCredentials: true
       };
 
+      if (Params.proxy) {
+        let Proxy = String(Params.proxy);
+        if (Proxy.match("(.+:.+)")) {
+          console.log("[validate] valid proxy :)");
+          let Host = Proxy.split(":")[0];
+          let Port = Proxy.split(":")[1];
+          RequestOptions.proxy = {
+            host: Host,
+            port: Port
+          };
+        }
+      }
+
       let Request = await axios(RequestOptions).catch(err => {
         console.error(`Request #${ReqIndex}: failed.`);
+        return Error("Request failed.");
       });
+
       console.log("=> GRAB RESPONSE: " + CurrentRequest.grab);
 
       if (Boolean(CurrentRequest.grab) === true) {
@@ -85,17 +100,6 @@ class Requests {
           }
         }
       }
-      /*
-      //VERIFY KEYWORDS
-      if(CurrentRequest.keywords){
-        Requests.keywords = await this.keywords(
-          Request.data,
-          CurrentRequest.json_response,
-          CurrentRequest.keywords.success,
-          CurrentRequest.keywords.fail
-        )
-      }
-      */
 
       Requests.list.push(RequestObject);
     }
