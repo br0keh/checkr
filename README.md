@@ -1,7 +1,7 @@
 # checkr
 Open-source cracking tool.
 
-
+## Abandoned project, just for studies.
 
 <i>Screenshot</i>
 ![App Screenshot](https://raw.githubusercontent.com/br0keh/checkr/master/screenshot.gif)
